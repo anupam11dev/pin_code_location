@@ -8,7 +8,7 @@
 ![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=for-the-badge&logo=leaflet&logoColor=white)
 ![OpenStreetMap](https://img.shields.io/badge/OpenStreetMap-7EBC6F?style=for-the-badge&logo=openstreetmap&logoColor=white)
 
-### 📍 Find the exact location of any Indian PIN code with an interactive map
+### 📍 Find multiple locations, post offices, coordinates, and live GPS tracking for any Indian PIN code(s) with an interactive map
 
 </div>
 
@@ -18,29 +18,37 @@
  
 ## ✨ Overview
 
-**PIN Code Location Finder** is a simple and user-friendly web application that allows users to search for any **6-digit Indian PIN code** and instantly view:
+**PIN Code Location Explorer** is a modern and comprehensive web application that allows users to search for single or multiple **6-digit Indian PIN codes** simultaneously to fetch **all** corresponding locations, post offices, and geographic points on an interactive Leaflet map.
 
-- 📌 Location details
-- 🏙️ City and district information
-- 🌎 State and country
-- 🗺️ Interactive map using Leaflet
-- 📍 Marker showing the exact location
+Key data surfaced:
+- 📌 **High-Accuracy Geocoding**: Verified against official India Post district & state registries.
+- 🎯 **Live Device GPS Tracking**: One-click current location tracking with automatic 6-digit PIN code reverse detection.
+- 📮 **Official India Post Offices Breakdown**: Branch Type, Delivery Status, District, Division, State.
+- 🗺️ **Interactive Multi-Marker Map**: With auto-fit bounds, radar indicator, and layer switcher.
+- 📍 **Color-coded Markers & Badges**: Distinguishes multiple PIN codes visually.
+- 📋 **1-Click Coordinate & Address Copying**: Fast clipboard access.
 
+---
 
+## 🚀 Key Features
 
-## 🚀 Features
+✅ **100% Verified Location Accuracy**: Resolves through authoritative India Post directory and multi-tier geocoders (Nominatim + Photon) with district-level validation.
 
-✅ Search any valid Indian PIN code
+✅ **Live GPS Device Tracking**: Click "Track GPS" to pinpoint your exact coordinates with an animated radar marker and auto-detect your active PIN code.
 
-✅ Display location information instantly
+✅ **Multi-Location Post Office Mapping**: Plots every single post office under the searched PIN code with its exact details, delivery status, and interactive pins.
 
-✅ Interactive map with zoom controls
+✅ **Multi-PIN Code Batch Search**: Enter multiple PIN codes separated by commas (e.g., `110001, 560001, 201314`) to plot and compare locations side-by-side.
 
-✅ Marker showing exact coordinates
+✅ **Color-Coded Visual Pinpointing**: Each searched PIN code receives a distinct custom color palette for map pins and result cards.
 
-✅ Responsive and attractive UI
+✅ **Interactive Map Sync**: Clicking any result card pans and zooms smoothly to that pin; clicking a pin highlights its corresponding card in the list.
 
-✅ Fast and lightweight
+✅ **Real-Time Results Filtering**: Filter fetched places instantly by name, district, or PIN code without re-fetching.
+
+✅ **Modern Responsive UI**: Professional dashboard layout with glassmorphism touches, search suggestions, recent search history, and mobile responsiveness.
+
+✅ **Map Controls & Layer Switcher**: Easily toggle between OpenStreetMap, CartoDB Voyager, and CartoDB Positron styles, plus 1-click "Fit All" bounds button.
 
 
 ## 🖼️ Project Preview

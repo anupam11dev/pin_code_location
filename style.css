@@ -1,61 +1,1074 @@
-body {
+/* ==========================================================================
+   PIN Code Location Explorer - Complete Stylesheet
+   ========================================================================== */
+
+:root {
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --primary-light: #EEF2FF;
+    --primary-border: #C7D2FE;
+    
+    --slate-900: #0F172A;
+    --slate-800: #1E293B;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748B;
+    --slate-400: #94A3B8;
+    --slate-300: #CBD5E1;
+    --slate-200: #E2E8F0;
+    --slate-100: #F1F5F9;
+    --slate-50:  #F8FAFC;
+    
+    --emerald-700: #047857;
+    --emerald-600: #059669;
+    --emerald-500: #10B981;
+    --emerald-50:  #ECFDF5;
+    --emerald-200: #A7F3D0;
+    
+    --blue-700: #1D4ED8;
+    --blue-600: #2563EB;
+    --blue-500: #3B82F6;
+    --blue-50:  #EFF6FF;
+    --blue-200: #BFDBFE;
+
+    --amber-600: #D97706;
+    --amber-50:  #FFFBEB;
+    --amber-200: #FDE68A;
+
+    --rose-600: #E11D48;
+    --rose-50:  #FFF1F2;
+    --rose-200: #FECDD3;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-full: 9999px;
+
+    --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--slate-100);
+    color: var(--slate-800);
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   App Layout
+   ========================================================================== */
+
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
-    background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+    overflow: hidden;
 }
 
-.container {
-    background: white;
+.app-header {
+    height: 64px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid var(--slate-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.35);
+}
+
+.brand-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    line-height: 1.2;
+}
+
+.brand-subtitle {
+    font-size: 0.78rem;
+    color: var(--slate-500);
+}
+
+.header-gps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--blue-50);
+    border: 1.5px solid var(--blue-200);
+    color: var(--blue-600);
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.header-gps-btn:hover {
+    background-color: #DBEAFE;
+    border-color: var(--blue-500);
+    transform: translateY(-1px);
+}
+
+.app-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    height: calc(100vh - 64px);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Sidebar: Search & Location Details
+   ========================================================================== */
+
+.sidebar-panel {
+    background-color: #FFFFFF;
+    border-right: 1px solid var(--slate-200);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 500px; /* Increased for better map display */
-    text-align: center;
-    background-color: bisque;
+    gap: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--slate-300) transparent;
 }
 
-#pincode {
+.sidebar-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-panel::-webkit-scrollbar-thumb {
+    background-color: var(--slate-300);
+    border-radius: 3px;
+}
+
+.search-card {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--slate-800);
+}
+
+.label-hint {
+    font-size: 0.74rem;
+    color: var(--slate-500);
+    font-weight: 500;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--slate-400);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+#pincode-input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 11px 36px 11px 38px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--slate-900);
+    background-color: #FFFFFF;
+    border: 1.5px solid var(--slate-300);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
 }
 
-#pincode-form button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
+#pincode-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+#pincode-input::placeholder {
+    color: var(--slate-400);
+    font-size: 0.88rem;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
     border: none;
-    border-radius: 5px;
+    color: var(--slate-400);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.clear-btn:hover {
+    color: var(--slate-700);
+    background-color: var(--slate-200);
+}
+
+.form-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    flex: 1.3;
+    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+    color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #4338CA 0%, #4F46E5 100%);
+    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-track {
+    background-color: var(--blue-50);
+    color: var(--blue-600);
+    border: 1.5px solid var(--blue-200);
+}
+
+.btn-track:hover {
+    background-color: #DBEAFE;
+    border-color: var(--blue-500);
+    transform: translateY(-1px);
+}
+
+.btn-ghost {
+    background: #FFFFFF;
+    color: var(--slate-600);
+    border: 1px solid var(--slate-300);
+    padding: 10px 12px;
+}
+
+.btn-ghost:hover {
+    background: var(--slate-100);
+    color: var(--slate-800);
+}
+
+.btn-text, .track-btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Spinner */
+.spinner {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.track-spinner {
+    border: 2px solid rgba(37, 99, 235, 0.25);
+    border-top-color: #2563EB;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Quick Chips */
+.quick-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.chips-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--slate-500);
+}
+
+.chips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chip {
+    font-family: inherit;
+    font-size: 0.76rem;
+    font-weight: 600;
+    background-color: #FFFFFF;
+    color: var(--slate-700);
+    border: 1px solid var(--slate-300);
+    padding: 5px 10px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.chip:hover {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-border);
+    transform: translateY(-1px);
+}
+
+.chip-multi {
+    background-color: var(--emerald-50);
+    border-color: var(--emerald-200);
+    color: var(--emerald-700);
+}
+
+/* Status Banner */
+.status-banner {
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.84rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease;
+}
+
+.status-banner.error {
+    background-color: var(--rose-50);
+    border: 1px solid var(--rose-200);
+    color: var(--rose-600);
+}
+
+.status-banner.info {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    color: var(--primary-hover);
+}
+
+.status-banner.success {
+    background-color: var(--emerald-50);
+    border: 1px solid var(--emerald-200);
+    color: var(--emerald-700);
+}
+
+/* GPS Card */
+.gps-card {
+    background: #FFFFFF;
+    border: 1.5px solid var(--blue-200);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    animation: fadeIn 0.3s ease;
+}
+
+.gps-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.gps-live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--blue-500);
+    border-radius: 50%;
+    animation: pulse-dot 1.8s infinite;
+}
+
+@keyframes pulse-dot {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+.gps-card-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--blue-600);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.gps-close-btn {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--slate-400);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.gps-card-body {
+    font-size: 0.84rem;
+    color: var(--slate-700);
+    line-height: 1.4;
+}
+
+.gps-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================================================
+   PROMINENT LOCATION DISPLAY CARDS ("Likh kr bata raha hai")
+   ========================================================================== */
+
+.results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.3s ease;
+}
+
+.location-summary-card {
+    background: #FFFFFF;
+    border: 2px solid var(--primary-border);
+    border-left: 6px solid var(--primary);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.loc-card-badge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loc-status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+}
+
+.loc-full-address-box {
+    background-color: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+}
+
+.loc-full-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    line-height: 1.35;
+    margin-bottom: 4px;
+}
+
+.loc-address-text {
+    font-size: 0.85rem;
+    color: var(--slate-600);
+    line-height: 1.45;
+}
+
+/* 4-Item Key Details Grid */
+.loc-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.detail-box {
+    background: #FFFFFF;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--slate-800);
+    margin-top: 2px;
+}
+
+.loc-actions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--slate-200);
+    gap: 8px;
+}
+
+.coords-pill {
+    font-family: monospace;
+    font-size: 0.76rem;
+    font-weight: 600;
+    background-color: var(--slate-100);
+    color: var(--slate-700);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.loc-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.loc-btn {
+    font-family: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    background: none;
+    border: 1px solid var(--slate-300);
+    color: var(--slate-700);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+}
+
+.loc-btn:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-border);
+    color: var(--primary);
+}
+
+/* Post Offices Section within Card */
+.postoffices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.po-header {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--slate-700);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.po-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.po-item {
+    background-color: #FFFFFF;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.po-item:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-border);
+    transform: translateX(2px);
+}
+
+.po-name-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.po-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--slate-900);
+}
+
+.po-type {
+    font-size: 0.72rem;
+    color: var(--slate-500);
+}
+
+.po-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+}
+
+.po-delivery {
+    background-color: var(--emerald-50);
+    color: var(--emerald-700);
+    border: 1px solid var(--emerald-200);
+}
+
+.po-nondelivery {
+    background-color: var(--amber-50);
+    color: var(--amber-600);
+    border: 1px solid var(--amber-200);
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    background-color: var(--slate-50);
+    border: 1.5px dashed var(--slate-300);
+    border-radius: var(--radius-lg);
+    gap: 12px;
+}
+
+.empty-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--slate-800);
+}
+
+.empty-state p {
+    font-size: 0.84rem;
+    color: var(--slate-500);
+    line-height: 1.5;
+    max-width: 320px;
+}
+
+/* Recent Searches */
+.recent-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid var(--slate-200);
+    padding-top: 14px;
+}
+
+.recent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recent-title {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.clear-recent-btn {
+    background: none;
+    border: none;
+    font-size: 0.72rem;
+    color: var(--slate-400);
     cursor: pointer;
 }
 
-#pincode-form button:hover {
-    background-color: #45a049;
+.clear-recent-btn:hover {
+    color: var(--rose-600);
 }
 
-#results {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #333;
-}
+/* ==========================================================================
+   Map Panel & Proper Pinpoint
+   ========================================================================== */
 
-#address {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #555;
-}
-
-#map {
-    margin-top: 20px;
+.map-panel {
+    position: relative;
     width: 100%;
-    height: 400px; /* Consistent with HTML */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 100%;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.map-floating-bar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.map-badge {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-full);
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--slate-800);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-md);
+}
+
+.pin-dot {
+    width: 9px;
+    height: 9px;
+    background-color: var(--emerald-500);
+    border-radius: 50%;
+}
+
+.map-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.map-action-btn {
+    background: #FFFFFF;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 7px 12px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--slate-700);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.map-action-btn:hover {
+    background-color: var(--slate-50);
+    border-color: var(--slate-300);
+    color: var(--primary);
+}
+
+.layer-selector {
+    position: relative;
+}
+
+.layer-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 140px;
+    z-index: 1001;
+}
+
+.layer-opt {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    color: var(--slate-700);
+    cursor: pointer;
+}
+
+.layer-opt:hover {
+    background-color: var(--slate-100);
+}
+
+.layer-opt.active {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* ==========================================================================
+   Leaflet Custom Elements & High-Visibility Markers
+   ========================================================================== */
+
+.custom-map-pin {
+    background: transparent;
+    border: none;
+}
+
+.pin-marker {
+    width: 36px;
+    height: 46px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pin-svg-wrapper {
+    position: absolute;
+    width: 36px;
+    height: 46px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+    transition: transform 0.2s ease;
+}
+
+.pin-marker:hover .pin-svg-wrapper {
+    transform: scale(1.15) translateY(-3px);
+}
+
+.pin-number {
+    position: absolute;
+    top: 8px;
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 900;
+    color: #FFFFFF;
+    z-index: 2;
+}
+
+/* GPS User Radar Marker */
+.user-gps-marker {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-gps-dot {
+    width: 16px;
+    height: 16px;
+    background-color: var(--blue-600);
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.8);
+    z-index: 2;
+}
+
+.user-gps-pulse {
+    width: 40px;
+    height: 40px;
+    border: 2.5px solid var(--blue-500);
+    border-radius: 50%;
+    position: absolute;
+    animation: radar-pulse 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 1;
+}
+
+@keyframes radar-pulse {
+    0% { transform: scale(0.4); opacity: 1; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* Leaflet Popup Styling */
+.leaflet-popup-content-wrapper {
+    border-radius: var(--radius-md) !important;
+    padding: 6px !important;
+    box-shadow: var(--shadow-lg) !important;
+    border: 1px solid var(--slate-200);
+}
+
+.leaflet-popup-content {
+    margin: 8px 10px !important;
+    line-height: 1.4 !important;
+    font-family: var(--font-family) !important;
+}
+
+.popup-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 220px;
+}
+
+.popup-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--slate-900);
+}
+
+.popup-address {
+    font-size: 0.8rem;
+    color: var(--slate-600);
+}
+
+.popup-coords {
+    font-family: monospace;
+    font-size: 0.74rem;
+    color: var(--slate-600);
+    background-color: var(--slate-100);
+    padding: 2px 6px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: var(--slate-900);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* Responsive */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 960px) {
+    .app-main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 450px;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .app-wrapper {
+        height: auto;
+        overflow: visible;
+    }
+
+    .sidebar-panel {
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--slate-200);
+    }
+
+    .map-panel {
+        height: 450px;
+    }
 }
